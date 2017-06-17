@@ -32,7 +32,9 @@ public:
   KalmanFilter ekf_;
 
 private:
-  // check whether the tracking toolbox was initialized or not (first measurement)
+	void update_process_covariance(float dt);
+	void update_state_transition(float dt);
+	// check whether the tracking toolbox was initialized or not (first measurement)
   bool is_initialized_;
 
   // previous timestamp
