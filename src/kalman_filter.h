@@ -68,6 +68,7 @@ public:
 private:
 	Eigen::VectorXd UpdateError(const Eigen::VectorXd &z);
 	void update_x_P(Eigen::VectorXd y);
+	double constrainAngle(double x);
 };
 
 #endif /* KALMAN_FILTER_H_ */

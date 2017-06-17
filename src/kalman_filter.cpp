@@ -51,6 +51,9 @@ VectorXd KalmanFilter::UpdateError(const VectorXd &z) {
 	Hx << ro ,
 			atan2(py,px) ,
 			(px*vx + py*vy)/ro;
+	if(z[1] - Hx[1] > 1.5*M_PI){
+		Hx[1] = Hx[1] + 2 * M_PI;
+	}
 	return (z - Hx);
 }
 
@@ -61,4 +64,11 @@ void KalmanFilter::update_x_P(VectorXd y){
 	x_ = x_ + (K * y);
 	MatrixXd I = MatrixXd::Identity(4, 4);
 	P_ = (I - (K * H_) )*P_;
+}
+
+double KalmanFilter::constrainAngle(double x){
+		x = fmod(x + M_PI,M_PI);
+		if (x < 0)
+				x += M_PI;
+		return x - M_PI;
 }
